@@ -67,10 +67,13 @@ class RegionAdapter(val listener: RegionClickListener) : RecyclerView.Adapter<Re
             }
 
             override fun publishResults(p0: CharSequence?, results: FilterResults?) {
-                regionListFiltered = if (results?.values == null)
-                    ArrayList()
-                else
+                if (results?.values == null) {
+                    regionListFiltered = ArrayList()
+                    listener.isRegionDataAvailable(false)
+                } else {
                     results.values as ArrayList<Regions>
+                    listener.isRegionDataAvailable(false)
+                }
                 notifyDataSetChanged()
             }
         }
@@ -79,4 +82,5 @@ class RegionAdapter(val listener: RegionClickListener) : RecyclerView.Adapter<Re
 
 interface RegionClickListener {
     fun onRegionItemClick(name: String)
+    fun isRegionDataAvailable(hasData: Boolean)
 }

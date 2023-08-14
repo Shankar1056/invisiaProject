@@ -68,10 +68,14 @@ class HotelAdapter(val listener: HotelClickListener) :
             }
 
             override fun publishResults(p0: CharSequence?, results: FilterResults?) {
-                hotelListFiltered = if (results?.values == null)
-                    ArrayList()
-                else
+                if (results?.values == null) {
+                    hotelListFiltered = ArrayList()
+                    listener.isHotelDataAvailable(false)
+                }
+                else {
                     results.values as ArrayList<Hotels>
+                    listener.isHotelDataAvailable(true)
+                }
                 notifyDataSetChanged()
             }
         }
@@ -80,4 +84,5 @@ class HotelAdapter(val listener: HotelClickListener) :
 
 interface HotelClickListener {
     fun onHotelItemClick(name: String)
+    fun isHotelDataAvailable(hasData: Boolean)
 }

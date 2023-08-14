@@ -1,4 +1,4 @@
-package com.example.invisiaproject
+package com.example.invisiaproject.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.invisiaproject.databinding.ActivityMainBinding
-import com.example.invisiaproject.ui.MainViewModel
+import com.example.invisiaproject.ui.viewModel.MainViewModel
 import com.example.invisiaproject.ui.adapter.HotelAdapter
 import com.example.invisiaproject.ui.adapter.HotelClickListener
 import com.example.invisiaproject.ui.adapter.RegionAdapter
@@ -86,25 +86,35 @@ class MainActivity : AppCompatActivity(), HotelClickListener, RegionClickListene
         mainViewModel.responseContainer.observe(this, Observer {
             if (it?.body != null) {
                 it.body!!.regions?.let { it1 -> regionAdapter.addData(it1) }
+                it.body!!.hotels?.let { it1 -> hotelAdapter.addData(it1) }
+
                 regionAdapter.notifyDataSetChanged()
+                hotelAdapter.notifyDataSetChanged()
             }
         })
 
-        mainViewModel.responseContainer.observe(this, Observer {
-            if (it?.body != null) {
-                it.body!!.hotels?.let { it1 -> hotelAdapter.addData(it1) }
-                hotelAdapter.notifyDataSetChanged()
-            }
+        mainViewModel.errorMessage.observe(this, Observer {
+            showToast(it)
         })
     }
 
     override fun onHotelItemClick(name: String) {
-        Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
+        showToast(name)
 
     }
 
-    override fun onRegionItemClick(name: String) {
+    override fun isHotelDataAvailable(hasData: Boolean) {
+    }
+
+    private fun showToast(name: String) {
         Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRegionItemClick(name: String) {
+        showToast(name)
+    }
+
+    override fun isRegionDataAvailable(hasData: Boolean) {
     }
 
 
