@@ -56,7 +56,7 @@ class RegionAdapter(val listener: RegionClickListener) : RecyclerView.Adapter<Re
                     val filteredList = ArrayList<Regions>()
                     regionList
                         .filter {
-                            (it.name?.lowercase()?.contains(constraint!!) == true)
+                            (it.name?.lowercase()?.contains(constraint.toString().lowercase()) == true)
 
                         }
                         .forEach { filteredList.add(it) }

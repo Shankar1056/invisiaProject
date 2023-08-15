@@ -57,7 +57,7 @@ class HotelAdapter(val listener: HotelClickListener) :
                     val filteredList = ArrayList<Hotels>()
                     hotelList
                         .filter {
-                            (it.name?.lowercase()?.contains(constraint!!) == true)
+                            (it.name?.lowercase()?.contains(constraint.toString().lowercase()) == true)
 
                         }
                         .forEach { filteredList.add(it) }
