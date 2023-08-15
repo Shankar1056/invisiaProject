@@ -6,7 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.invisiaproject.databinding.ItemsHotelBinding
-import com.example.invisiaproject.ui.Hotels
+import com.example.invisiaproject.network.model.Hotels
 
 class HotelAdapter(val listener: HotelClickListener) :
     RecyclerView.Adapter<HotelAdapter.HotelViewHolder>(), Filterable {

@@ -1,4 +1,4 @@
-package com.example.invisiaproject.ui
+package com.example.invisiaproject.network.model
 
 data class HotelRegionModel(
     val message: String? = null,

@@ -1,4 +1,4 @@
-package com.example.invisiaproject.ui.utility
+package com.example.invisiaproject.utility
 
 import android.content.Context
 import android.net.ConnectivityManager

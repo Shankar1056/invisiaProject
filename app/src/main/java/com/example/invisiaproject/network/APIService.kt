@@ -1,5 +1,6 @@
-package com.example.invisiaproject.ui
+package com.example.invisiaproject.network
 
+import com.example.invisiaproject.network.model.HotelRegionModel
 import retrofit2.Response
 import retrofit2.http.GET
 

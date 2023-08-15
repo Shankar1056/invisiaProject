@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.invisiaproject.ui.APIService
-import com.example.invisiaproject.ui.HotelRegionModel
-import com.example.invisiaproject.ui.utility.Utility
+import com.example.invisiaproject.network.APIService
+import com.example.invisiaproject.network.model.HotelRegionModel
+import com.example.invisiaproject.utility.Utility
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,5 +1,6 @@
-package com.example.invisiaproject.ui
+package com.example.invisiaproject.di
 
+import com.example.invisiaproject.network.APIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.example.invisiaproject
+package com.example.invisiaproject.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

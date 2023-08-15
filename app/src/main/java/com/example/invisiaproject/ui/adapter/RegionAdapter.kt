@@ -6,7 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.invisiaproject.databinding.ItemsHotelBinding
-import com.example.invisiaproject.ui.Regions
+import com.example.invisiaproject.network.model.Regions
 
 class RegionAdapter(val listener: RegionClickListener) : RecyclerView.Adapter<RegionAdapter.HRViewHolder>(), Filterable {
     private var regionList = ArrayList<Regions>()
