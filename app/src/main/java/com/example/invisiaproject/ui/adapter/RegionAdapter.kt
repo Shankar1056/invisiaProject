@@ -67,13 +67,11 @@ class RegionAdapter(val listener: RegionClickListener) : RecyclerView.Adapter<Re
             }
 
             override fun publishResults(p0: CharSequence?, results: FilterResults?) {
-                if (results?.values == null) {
+                if (results?.values == null)
                     regionListFiltered = ArrayList()
-                    listener.isRegionDataAvailable(false)
-                } else {
+                else
                     results.values as ArrayList<Regions>
-                    listener.isRegionDataAvailable(false)
-                }
+                listener.isRegionDataAvailable(regionListFiltered.isEmpty())
                 notifyDataSetChanged()
             }
         }

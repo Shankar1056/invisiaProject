@@ -22,7 +22,9 @@ class MainViewModel @Inject constructor(
 
     val responseContainer = MutableLiveData<HotelRegionModel>()
     val errorMessage = MutableLiveData<String>()
-    private val isShowProgress = MutableLiveData<Boolean>()
+    val isShowProgress = MutableLiveData<Boolean>(true)
+    var isRegionDataFound = MutableLiveData<Boolean>(false)
+    var isHotelDataFound = MutableLiveData<Boolean>(false)
 
 
     fun getMoviesFromAPI() {
@@ -40,9 +42,9 @@ class MainViewModel @Inject constructor(
             viewModelScope.launch {
                 val response = retrofitInstance.getHotelRegion()
                 withContext(Dispatchers.Main) {
+                    isShowProgress.value = false
                     if (response.isSuccessful) {
                         responseContainer.postValue(response.body())
-                        isShowProgress.value = false
                     } else {
                         onError("Error : ${response.message()}")
                         errorMessage.postValue(response.message())
@@ -50,6 +52,7 @@ class MainViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
+            isShowProgress.value = true
             errorMessage.value = e.message
         }
     }

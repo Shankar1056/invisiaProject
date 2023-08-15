@@ -68,14 +68,12 @@ class HotelAdapter(val listener: HotelClickListener) :
             }
 
             override fun publishResults(p0: CharSequence?, results: FilterResults?) {
-                if (results?.values == null) {
+                if (results?.values == null)
                     hotelListFiltered = ArrayList()
-                    listener.isHotelDataAvailable(false)
-                }
-                else {
+                else
                     results.values as ArrayList<Hotels>
-                    listener.isHotelDataAvailable(true)
-                }
+                listener.isHotelDataAvailable(hotelListFiltered.isEmpty())
+
                 notifyDataSetChanged()
             }
         }

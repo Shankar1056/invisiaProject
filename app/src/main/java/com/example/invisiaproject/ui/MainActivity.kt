@@ -5,17 +5,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.invisiaproject.databinding.ActivityMainBinding
-import com.example.invisiaproject.ui.viewModel.MainViewModel
 import com.example.invisiaproject.ui.adapter.HotelAdapter
 import com.example.invisiaproject.ui.adapter.HotelClickListener
 import com.example.invisiaproject.ui.adapter.RegionAdapter
 import com.example.invisiaproject.ui.adapter.RegionClickListener
+import com.example.invisiaproject.ui.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -25,12 +25,14 @@ class MainActivity : AppCompatActivity(), HotelClickListener, RegionClickListene
     private lateinit var binding: ActivityMainBinding
     private lateinit var regionAdapter: RegionAdapter
     private lateinit var hotelAdapter: HotelAdapter
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.viewModel = mainViewModel
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         setUpViewModel()
         setUpRegionRecyclerView()
@@ -81,8 +83,6 @@ class MainActivity : AppCompatActivity(), HotelClickListener, RegionClickListene
     }
 
     private fun setUpViewModel() {
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
         mainViewModel.responseContainer.observe(this, Observer {
             if (it?.body != null) {
                 it.body!!.regions?.let { it1 -> regionAdapter.addData(it1) }
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), HotelClickListener, RegionClickListene
     }
 
     override fun isHotelDataAvailable(hasData: Boolean) {
+        mainViewModel.isHotelDataFound.value = hasData
     }
 
     private fun showToast(name: String) {
@@ -115,6 +116,12 @@ class MainActivity : AppCompatActivity(), HotelClickListener, RegionClickListene
     }
 
     override fun isRegionDataAvailable(hasData: Boolean) {
+        mainViewModel.isRegionDataFound.value = hasData
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 
